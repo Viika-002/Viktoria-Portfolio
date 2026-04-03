@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viktoria Portfolio</title>
+
+<style>
+@font-face {
+    font-family: "CorrectionTape";
+    src: url("CorrectionTape.otf");
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: "CorrectionTape", Arial, sans-serif;
+    background: #02024f;
+    color: white;
+    cursor: url("Курсор 01 PNG.png"), auto;
+    overflow-x: hidden;
+}
+
+a, button {
+    cursor: url("Курсор 02 PNG.png"), pointer;
+}
+
+/* FRAME */
+
+.page-frame {
+    width: calc(100% - 40px);
+    margin: 20px;
+    border: 4px solid #62f7ff;
+    box-shadow:
+        0 0 8px #62f7ff,
+        0 0 18px rgba(98, 247, 255, 0.8),
+        inset 0 0 8px rgba(98, 247, 255, 0.45);
+    position: relative;
+    min-height: calc(100vh - 40px);
+}
+
+.page-frame::before,
+.page-frame::after,
+.corner-bottom-left,
+.corner-bottom-right {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border: 4px solid #62f7ff;
+    box-shadow: 0 0 8px #62f7ff, 0 0 16px rgba(98, 247, 255, 0.8);
+    z-index: 30;
+}
+
+.page-frame::before {
+    top: -10px;
+    left: -10px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.page-frame::after {
+    top: -10px;
+    right: -10px;
+    border-left: none;
+    border-bottom: none;
+}
+
+.corner-bottom-left {
+    bottom: -10px;
+    left: -10px;
+    border-right: none;
+    border-top: none;
+}
+
+.corner-bottom-right {
+    bottom: -10px;
+    right: -10px;
+    border-left: none;
+    border-top: none;
+}
+
+.container {
+    width: 90%;
+    margin: auto;
+    position: relative;
+}
+
+section {
+    padding: 80px 0;
+    position: relative;
+}
+
+/* PRELOADER */
+
+#preloader {
+    position: fixed;
+    inset: 0;
+    background: #02024f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 9999;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+#preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.preloader-cat {
+    width: 160px;
+    animation: floaty 2.2s ease-in-out infinite;
+}
+
+.preloader-title {
+    margin-top: 20px;
+    font-size: 34px;
+    color: white;
+    letter-spacing: 2px;
+}
+
+.preloader-subtitle {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #c9b8ef;
+}
+
+.preloader-glow {
+    filter: drop-shadow(0 0 14px rgba(255, 127, 79, 0.35));
+}
+
+/* ANIMATIONS */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(35px);
+    animation: revealUp 0.9s ease forwards;
+}
+
+.delay-1 { animation-delay: 0.15s; }
+.delay-2 { animation-delay: 0.3s; }
+.delay-3 { animation-delay: 0.45s; }
+
+.floaty { animation: floaty 4.6s ease-in-out infinite; }
+.glow { animation: glowPulse 2.8s ease-in-out infinite; }
+
+@keyframes revealUp {
+    from { opacity: 0; transform: translateY(35px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floaty {
+    0%,100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+}
+
+@keyframes glowPulse {
+    0%,100% { box-shadow: 0 0 18px rgba(98,247,255,0.35); }
+    50% { box-shadow: 0 0 28px rgba(98,247,255,0.6); }
+}
+
+/* BUTTONS */
+
+.btn {
+    border: 6px solid #c9b8ef;
+    padding: 16px 34px;
+    margin-right: 15px;
+    margin-top: 10px;
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+    transition: 0.3s;
+    border-radius: 10px;
+    background: transparent;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn.fill {
+    background: #c9b8ef;
+    color: #19134a;
+    border-color: transparent;
+}
+
+.btn:hover {
+    background: #c9b8ef;
+    color: #02024f;
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 0 18px rgba(201, 184, 239, 0.45);
+}
+
+/* HERO */
+
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100vh;
+    gap: 40px;
+}
+
+.hero-text { width: 48%; z-index: 3; }
+
+.hero h1 {
+    font-size: 62px;
+    margin: 0;
+    line-height: 1.05;
+}
+
+.hero p {
+    font-size: 24px;
+    margin-top: 26px;
+}
+
+.hero-visual {
+    width: 52%;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-character {
+    width: 100%;
+    max-width: 640px;
+}
+
+/* ABOUT */
+
+.about {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 60px;
+    min-height: 100vh;
+}
+
+.about-visual { width: 42%; display: flex; justify-content: center; }
+
+.about-character {
+    width: 100%;
+    max-width: 420px;
+    border: 4px solid #62f7ff;
+    border-radius: 50%;
+    padding: 18px;
+    box-shadow: 0 0 10px #62f7ff, 0 0 24px rgba(98, 247, 255, 0.75);
+}
+
+.about-text { width: 58%; font-size: 22px; }
+
+.about-heading { font-size: 58px; }
+
+#more-text {
+    display: none;
+    margin-top: 20px;
+    color: #c9b8ef;
+}
+
+/* PROJECTS */
+
+.projects-section {
+    min-height: 100vh;
+    position: relative;
+}
+
+.projects-bg {
+    position: absolute;
+    left: 0;
+    top: 40px;
+    width: 56%;
+    max-width: 760px;
+    opacity: 0.38; /* ИЗМЕНЕНО */
+    z-index: 1;
+    pointer-events: none;
+}
+
+.section-title {
+    font-size: 60px;
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 3;
+}
+
+.projects {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 34px;
+    position: relative;
+    z-index: 3;
+}
+
+.project {
+    background: transparent;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.project-preview {
+    background: rgba(201, 184, 239, 0.78);
+    border-radius: 18px;
+    overflow: hidden;
+    height: 220px;
+    margin-bottom: 14px;
+}
+
+.project-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* CONTACTS */
+
+.contacts { min-height: 100vh; }
+
+.contact-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contact-text { width: 40%; font-size: 24px; }
+
+.contact-text h1 {
+    font-size: 64px;
+    color: #62f7ff;
+}
+
+.contact-visual { width: 60%; }
+
+.contact-visual img {
+    width: 100%;
+    max-width: 680px;
+    opacity: 0.38;
+}
+</style>
+</head>
+
+<body>
+
+<div id="preloader">
+    <img src="Cat PNG 01.png" class="preloader-cat preloader-glow">
+    <div class="preloader-title">Viktoria</div>
+    <div class="preloader-subtitle">Loading portfolio...</div>
+</div>
+
+<div class="page-frame">
+<div class="corner-bottom-left"></div>
+<div class="corner-bottom-right"></div>
+
+<div class="container">
+
+<section class="hero">
+    <div class="hero-text">
+        <h1>Viktoria - Multimedia & Digital Designer</h1>
+        <p>I create visuals, animation & digital stories</p>
+
+        <a class="btn fill" href="#projects">View portfolio</a>
+        <a class="btn" href="#about">About me</a>
+    </div>
+
+    <div class="hero-visual">
+        <img src="Me PNG 01.png" class="hero-character">
+    </div>
+</section>
+
+<section id="about" class="about">
+    <div class="about-visual">
+        <img src="Me PNG 01.png" class="about-character">
+    </div>
+
+    <div class="about-text">
+        <h1 class="about-heading">About Me</h1>
+
+        <p>
+        Hi! my name is Viktoria.<br><br>
+        i'm a multimedia and digital designer.<br>
+        i create visuals, animations and digital stories.<br>
+        i'm passionate and explore the creative
+        posibilities of combining different styles and techniques.
+        </p>
+
+        <div id="more-text">
+            <p>
+            I work with digital illustration, character design, visual storytelling
+            and creative experiments in different styles. I like creating atmospheric
+            characters, expressive concepts and memorable images that can become part
+            of larger stories, games and multimedia projects.
+            </p>
+
+            <p>
+            I enjoy combining design, emotion and narrative in one visual language.
+            My goal is to keep developing my personal style and create projects that
+            feel unique, alive and full of character.
+            </p>
+        </div>
+
+        <br>
+        <a class="btn" onclick="toggleText()">Read more</a>
+    </div>
+</section>
+
+<section id="projects" class="projects-section">
+    <img src="Me PNG 02.png" class="projects-bg">
+    <h1 class="section-title">Recent Works</h1>
+
+    <div class="projects">
+        <div class="project">
+            <div class="project-preview">
+                <img src="Pixie.jpg">
+            </div>
+            <h2>Digital Illustrations</h2>
+            <p>Collection of my best character illustrations.</p>
+            <a class="btn" href="project_digital_illustrations.html">View Project</a>
+        </div>
+
+        <div class="project">
+            <div class="project-preview">
+                <img src="Character_Эмилия_01_Full.jpg">
+            </div>
+            <h2>Shadow Beyond</h2>
+            <p>Character concept project for the upcoming visual novel.</p>
+            <a class="btn" href="project_shadow_beyond.html">View Project</a>
+        </div>
+    </div>
+</section>
+
+<section id="contacts" class="contacts">
+    <div class="contact-layout">
+        <div class="contact-text">
+            <h1>Contacts</h1>
+            <p>+380685340245</p>
+            <p>kiselevavictoria24@gmail.com</p>
+            <p>Telegram: @Viika002</p>
+            <p>Instagram: clem._.002</p>
+        </div>
+
+        <div class="contact-visual">
+            <img src="Me PNG 02.png">
+        </div>
+    </div>
+</section>
+
+</div>
+</div>
+
+<script>
+function toggleText() {
+    const text = document.getElementById("more-text");
+
+    if (text.style.display === "none" || text.style.display === "") {
+        text.style.display = "block";
+    } else {
+        text.style.display = "none";
+    }
+}
+
+window.addEventListener("load", function() {
+    const preloader = document.getElementById("preloader");
+
+    setTimeout(() => {
+        preloader.classList.add("hidden");
+    }, 1400);
+});
+</script>
+
+</body>
+</html>
